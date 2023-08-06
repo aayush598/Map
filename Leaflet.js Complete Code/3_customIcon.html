@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+   crossorigin=""/>
+
+   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+   crossorigin=""></script>
+
+
+</head>
+<body>
+    
+    <div id="map" style = "width: 900px; height: 580px"></div>
+
+    <script>
+
+        var map = L.map('map').setView([51.5, -0.09], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map)
+
+        // var greenIcon = L.icon({
+        //     iconUrl: 'images/leaf-green.png',
+        //     shadowUrl: 'images/leaf-shadow.png',
+
+        //     iconSize:     [38, 95], // size of the icon
+        //     shadowSize:   [200, 200], // size of the shadow
+        //     iconAnchor:   [2, -40], // point of the icon which will correspond to marker's location
+        //     shadowAnchor: [4, 62],  // the same for the shadow
+        //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        // });
+
+        // L.marker([51.5, -0.09], {icon: greenIcon}).addTo(map);
+
+
+        var LeafIcon = L.Icon.extend({
+            options: {
+                shadowUrl: 'images/leaf-shadow.png',
+                iconSize:     [38, 95],
+                shadowSize:   [50, 64],
+                iconAnchor:   [22, 94],
+                shadowAnchor: [4, 62],
+                popupAnchor:  [-3, -76]
+            }
+        });
+
+        var greenIcon = new LeafIcon({iconUrl: 'images/leaf-green.png'}),
+            redIcon = new LeafIcon({iconUrl: 'images/leaf-red.png'}),
+            orangeIcon = new LeafIcon({iconUrl: 'images/leaf-orange.png'});
+
+
+        
+        L.marker([51.5, -0.09], {icon: redIcon}).addTo(map);
+        
+    </script>
+</body>
+</html>
