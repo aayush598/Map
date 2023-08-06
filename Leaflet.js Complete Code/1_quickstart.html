@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+   integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+   crossorigin=""/>
+
+   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+   crossorigin=""></script>
+
+
+</head>
+<body>
+    
+    <div id="map" style = "width: 900px; height: 580px"></div>
+
+    <script>
+
+        var map = L.map('map').setView([51.5, -0.09], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map)
+
+        // mark a location
+        var marker = L.marker([51.5, -0.09]).addTo(map);
+
+        // draw a circle
+        var circle = L.circle([51.508, -0.11], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500
+        }).addTo(map);
+
+        // draw line from multiple points
+        var polygon = L.polygon([
+            [51.509, -0.08],
+            [51.503, -0.06],
+            [51.51, -0.047]
+        ]).addTo(map);
+
+        // Create a popup when someone click on that marker,circle polygon
+        marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+        circle.bindPopup("I am a circle.");
+        polygon.bindPopup("I am a polygon.");
+
+        // This popup will automatically activated while showing map. No requirement of marker, circle etc
+        var popup = L.popup()
+            .setLatLng([51.513, -0.09])
+            .setContent("I am a standalone popup.")
+            .openOn(map);
+
+        // Alert box when click on any point on map showing lat lng
+        function onMapClick(e) {
+            alert("You clicked the map at " + e.latlng);
+        }
+        var popup = L.popup();
+
+
+        
+        // Uncomment below line  to create popup when click instead of alert & comment above section.
+
+        // function onMapClick(e) {
+        //     popup
+        //         .setLatLng(e.latlng)
+        //         .setContent("You clicked the map at " + e.latlng.toString())
+        //         .openOn(map);
+        // }
+
+
+        // Attach function when we click on map
+        map.on('click', onMapClick);
+
+    </script>
+</body>
+</html>
